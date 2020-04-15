@@ -24,7 +24,7 @@ public class ItineraryManager
 
         // Use declarative Task.WhenAll instead of Parallel which block the calling thread
         var pricesSets = await Task.WhenAll(priceProviders
-                .Select(provider => Task.Run(() => provider.GetQuotes(itinerary.TicketClass, itinerary.Waypoints))));
+            .Select(provider => Task.Run(() => provider.GetQuotes(itinerary.TicketClass, itinerary.Waypoints))));
 
         return pricesSets
             .SelectMany(x => x);
