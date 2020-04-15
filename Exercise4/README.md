@@ -1,6 +1,67 @@
 # Exercise 4
 
-I have made adjustments to the provided snippet as below. All original comments have been removed for brevity.
+Below are the original and adjusted ItineraryManager. All original comments have been removed for brevity
+
+## Original
+
+```csharp
+public class ItineraryManager
+{
+    private readonly IDataStore _dataStore;
+    private readonly IDistanceCalculator _distanceCalculator;
+
+    public ItineraryManager()
+    {
+        _dataStore = new SqlAgentStore(ConfigurationManager.ConnectionStrings["SqlDbConnection"].ConnectionString);
+        _distanceCalculator = new GoogleMapsDistanceCalculator(ConfigurationManager.AppSettings["GoogleMapsApiKey"]);
+    }
+
+    public IEnumerable<Quote> CalculateAirlinePrices(int itineraryId, IEnumerable<IAirlinePriceProvider> priceProviders)
+    {
+        var itinerary = _dataStore.GetItinaryAsync(itineraryId).Result;
+        if (itinerary == null)
+            throw new InvalidOperationException();
+
+        List<Quote> results = new List<Quote>();
+        Parallel.ForEach(priceProviders, provider =>
+        {
+            var quotes = provider.GetQuotes(itinerary.TicketClass, itinerary.Waypoints);
+            foreach (var quote in quotes)
+                results.Add(quote);
+        });
+        return results;
+    }
+
+    public async Task<double> CalculateTotalTravelDistanceAsync(int itineraryId)
+    {
+        var itinerary = await _dataStore.GetItinaryAsync(itineraryId);
+        if (itinerary == null)
+            throw new InvalidOperationException();
+        double result = 0;
+        for(int i=0; i<itinerary.Waypoints.Count-1; i++)
+        {
+            result = result + _distanceCalculator.GetDistanceAsync(itinerary.Waypoints[i],
+                 itinerary.Waypoints[i + 1]).Result;
+        }
+        return result;
+    }
+
+    public TravelAgent FindAgent(int id, string updatedPhoneNumber)
+    {
+        var agentDao = _dataStore.GetAgent(id);
+        if (agentDao == null)
+            return null;
+        if (!string.IsNullOrWhiteSpace(updatedPhoneNumber))
+        {
+            agentDao.PhoneNumber = updatedPhoneNumber;
+            _dataStore.UpdateAgent(id, agentDao);
+        }
+        return Mapper.Map<TravelAgent>(agentDao);
+    }
+}
+```
+
+## Adjusted
 
 ```csharp
 public class ItineraryManager
