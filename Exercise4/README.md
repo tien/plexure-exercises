@@ -106,7 +106,7 @@ public class ItineraryManager
             .Zip(waypoints.Skip(1), (orig, dest) => (orig, dest))
             .Select(pair => _distanceCalculator.GetDistanceAsync(pair.orig, pair.dest));
 
-        return await Task.WhenAll(distancesTasks);
+        return (await Task.WhenAll(distancesTasks)).Sum();
     }
 
 
