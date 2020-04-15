@@ -1,6 +1,6 @@
 # Exercise 4
 
-I have made the adjustment to the provided snippet as below. All original comments have been removed for brevity.
+I have made adjustments to the provided snippet as below. All original comments have been removed for brevity.
 
 ```csharp
 public class ItineraryManager
