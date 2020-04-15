@@ -101,12 +101,12 @@ public class ItineraryManager
         // Always prefer declarative over imperitive code
         // Here the code itself describe it intention
         var waypoints = itinerary.Waypoints;
-        var distancesTask = waypoints
+        var distancesTasks = waypoints
             .SkipLast(1)
             .Zip(waypoints.Skip(1), (orig, dest) => (orig, dest))
             .Select(pair => _distanceCalculator.GetDistanceAsync(pair.orig, pair.dest));
 
-        return await Task.WhenAll(distancesTask);
+        return await Task.WhenAll(distancesTasks);
     }
 
 
