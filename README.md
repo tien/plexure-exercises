@@ -1,6 +1,8 @@
 # Plexure Exercises
 
+- [Exercise 1](./src/CouponApi/Utils/Foo.cs) - [Exercise 1 tests](./tests/CouponApi.Tests/Utils/FooTests.cs)
 - [Exercise 2](./Exercise2/README.md)
+- [Exercise 3](./tests/CouponApi.Tests/Services/CouponManagerTests.cs)
 - [Exercise 4](./Exercise4/README.md)
-- For Exercise 1 & 3 I've implemented them and they can be found and run in [src](./src) and [tests](./tests)
-- For the lack of a better name for exercise 1 I've created a util at [Foo.cs](./src/CouponApi/Utils/Foo.cs)
+
+NOTE: Exercise 1 and 3 are fully runnable while exercise 4 was not due to too much dependencies (although I can do this easily if this is required)
