@@ -57,7 +57,7 @@ public class ItineraryManager
     {
         var agentDao = _dataStore.GetAgent(id);
         if (agentDao == null)
-            return null;s
+            return null;
 
         if (!string.IsNullOrWhiteSpace(updatedPhoneNumber))
         {
