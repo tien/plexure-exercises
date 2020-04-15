@@ -39,7 +39,7 @@ public class ItineraryManager
 
         // Always prefer declarative over imperitive code
         // Here the code itself describe it intention
-        var waypoints = (IEnumerable<int>) itinerary.Waypoints;
+        var waypoints = itinerary.Waypoints;
         var distancesTask = waypoints
             .SkipLast(1)
             .Zip(waypoints.Skip(1), (orig, dest) => (orig, dest))
