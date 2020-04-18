@@ -31,7 +31,7 @@ namespace PlexureExercises.CouponApi.Tests.Services
 
             var sut = await couponManager.CanRedeemCoupon(userId, couponId, evaluators);
 
-            sut.Should().Equals(expectedRedeemability);
+            sut.Should().Be(expectedRedeemability);
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace PlexureExercises.CouponApi.Tests.Services
 
             var sut = await couponManager.CanRedeemCoupon(couponId, userId, evaluators);
 
-            sut.Should().Be(true);
+            sut.Should().BeTrue();
         }
 
         private ICouponManager CreateCouponManager(ILogger? logger = null, ICouponProvider? couponProvider = null)
